@@ -1,0 +1,77 @@
+{
+    "tasks": [
+      {
+        "id": "acc9",
+        "title": "newww",
+        "description": "",
+        "date": "",
+        "time": "",
+        "categories": [
+          "Frontend ",
+          "Trabajo "
+        ],
+        "priority": "Alta"
+      },
+      {
+        "id": "341a",
+        "title": "safi",
+        "description": "",
+        "date": "2024-04-30",
+        "time": "00:08",
+        "categories": [
+          "Amorcito "
+        ],
+        "priority": "Baja"
+      },
+      {
+        "id": "a420",
+        "title": "newww",
+        "description": "",
+        "date": "",
+        "time": "",
+        "categories": [],
+        "priority": "Media"
+      },
+      {
+        "id": "ca98",
+        "title": "ssssss",
+        "description": "",
+        "date": "",
+        "time": "",
+        "categories": [],
+        "priority": "Baja"
+      }
+    ],
+    "categories": [
+      {
+        "id": "1",
+        "title": "Sin categoría",
+        "postId": "1"
+      },
+      {
+        "id": "2",
+        "title": "Categoría de prueba",
+        "postId": "1"
+      },
+      {
+        "id": "a2bd",
+        "title": "Frontend "
+      },
+      {
+        "id": "0651",
+        "title": "Amorcito "
+      },
+      {
+        "id": "e24d",
+        "title": "Casa "
+      },
+      {
+        "id": "0203",
+        "title": "Trabajo "
+      },
+      {
+        "id": "89a3",
+        "title": "fsdfs "
+      }
+    ]
+  }
