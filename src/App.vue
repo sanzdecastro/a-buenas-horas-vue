@@ -1,6 +1,10 @@
 <script >
+import TaskDetails from './pages/TaskDetails.vue';
 export default {
   name: "App",
+  components: {
+    TaskDetails,
+  },
   data() {
     return {
       tasks: [],
@@ -8,16 +12,14 @@ export default {
 
       taskTitle: '',
       taskDescription: '',
-
-      activeTask: '',
-
-      newTitle: '',
-      newDescription: ''
     }
-    
   },
   async created() {
-    try {
+    this.fetchTasks();
+  },
+  methods: {
+    async fetchTasks() {
+      try {
         let response = await fetch("http://localhost:3000/tasks");
         let tasks = await response.json();
         console.log(tasks);
@@ -26,16 +28,7 @@ export default {
       catch(error) {
         console.log(error);
       }
-  },
-  methods: {
-    openTask(id) {
-      let selectedTask = this.tasks.forEach(task => {
-        if (task.id === id) {
-          this.activeTask = task;
-        }
-      });
     },
-    
     async submitTask(taskTitle, taskDescription){
       const newTask = {
         title: taskTitle,
@@ -51,38 +44,17 @@ export default {
       })
       window.location.reload();
     },
-    async deleteTask(id){
-      const url = `http://localhost:3000/tasks/${id}`;
-      const response = await fetch(url, {
-         method: 'DELETE',
-         headers: {
-           'Content-Type': 'application/json',
-         }
-      });
-      window.location.reload();
-      return await response.json();
-    },
-    async editTask(id, newTitle, newDescription){
-      const editedTask = {
-        title: newTitle,
-        description: newDescription,
-      }
-
-      const url = `http://localhost:3000/tasks/${id}`;
-      const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(editedTask)
-      })
-      window.location.reload();
-    },
   }
 }
 </script>
 
 <template>
+  <nav>
+      <ul>
+        <router-link to="/home">Home</router-link>
+      </ul>
+    </nav>
+    
   <div class="bodyView">
     <h1>A buenas horas</h1>
 
@@ -94,7 +66,7 @@ export default {
 
     <div class="tasks-container">
       <div class="tasks" v-if="this.tasks.length > 0" v-for="task in this.tasks">
-        <div class="task" @click="openTask(task.id)">
+        <div class="task">
           <div class="header-task">
             <h2>{{ task.title }}</h2>
             <div class="priority" :class="task.priority">{{ task.priority }}</div>
@@ -108,23 +80,17 @@ export default {
               {{ category }}
             </div>
           </div>
-          <button  type="button" @click="deleteTask(task.id)">Delete</button>
+          <router-link :to="`task/${task.id}`">See details</router-link>
+          
         </div>
       </div>
       <p v-else>No hay tareas, crea una</p>
     </div>
+    <router-view>
 
-    <div v-if="this.activeTask != ''" class="singleTask" :id=[this.activeTask.id]>
-      <h2>{{ this.activeTask.title}}</h2>
-      <h2>{{ this.activeTask.priority}}</h2>
-      <p>{{ this.activeTask.description}}</p>
+    </router-view>
+    
 
-      <input v-model="newTitle" :placeholder="this.activeTask.title">
-      <input v-model="newDescription" :placeholder="this.activeTask.description"></input>
-      
-      <button  type="button" @click="deleteTask(this.activeTask.id)">Delete</button>
-      <button  type="button" @click="editTask(this.activeTask.id, this.newTitle, this.newDescription )">Edit</button>
-    </div>
   </div>
 </template>
 
